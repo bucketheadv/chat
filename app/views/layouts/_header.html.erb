@@ -1,0 +1,16 @@
+<div class="ui green fixed inverted menu">
+  <div class="ui container">
+    <a href="<%= root_path %>" class="header item">
+      <%= t("app.name") %>
+    </a>
+    <a href="<%= root_path %>" class="item"><%= t("actionview.page.home") %></a>
+    <div class="ui simple dropdown item">
+      <%= t("operation.more") %>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+      </div>
+    </div>
+    <% if current_user %>
+    <% end %>
+  </div>
+</div>
