@@ -1,2 +1,4 @@
 <h1><%= t("app.welcome") %></h1>
-<%= link_to t("operation.sign_in"), new_user_session_path %>
+<% if !signed_in? %>
+  <%= link_to t("operation.sign_in"), new_user_session_path %>
+<% end %>
