@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  app:
+    name: Message Platform
+    welcome: Welcome to message platform.
+  operation:
+    sign_in: Sign in
+    sign_out: Sign out

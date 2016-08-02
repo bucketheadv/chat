@@ -1,0 +1,7 @@
+zh-CN:
+  app:
+    name: 消息平台
+    welcome: 欢迎来到消息平台。
+  operation:
+    sign_in: 登录
+    sign_out: 登出
