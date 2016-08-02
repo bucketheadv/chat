@@ -38,6 +38,8 @@ group :development, :test do
   gem 'rspec-mocks'
   gem 'shoulda-matchers'
   gem 'shoulda-callback-matchers'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do
