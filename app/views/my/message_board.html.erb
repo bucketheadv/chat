@@ -1,0 +1,31 @@
+<table class="ui very basic collapsing celled table">
+  <thead>
+    <tr>
+      <th>
+        邮箱
+      </th>
+      <th>
+        未读数
+      </th>
+      <th>
+        操作
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @conversation_relation.each do |relation| %>
+    <tr>
+      <td>
+        <%= relation.receiver.email %>
+      </td>
+      <td>
+        <%= current_user.unread_messages_from(relation.receiver_conversation).count %>
+      </td>
+      <td>
+        <%= link_to "发消息", new_conversation_path(receiver_id: relation.receiver.id), class: 'ui button' %>
+        <%= link_to "删除", delete_my_conversation_path(relation), method: :delete, data: { confirm: "你确定?"}, class: 'ui button red' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

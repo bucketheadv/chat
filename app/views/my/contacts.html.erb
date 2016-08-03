@@ -1,0 +1,24 @@
+<table class="ui very basic collapsing celled table">
+  <thead>
+    <tr>
+      <th>
+        邮箱
+      </th>
+      <th>
+        操作
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+    <tr>
+      <td>
+        <%= contact.email %>
+      </td>
+      <td>
+        <%= link_to "发消息", new_conversation_path(receiver_id: contact.id), class: 'ui button' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

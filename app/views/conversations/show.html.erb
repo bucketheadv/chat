@@ -1,0 +1,31 @@
+<div class="ui example">
+  <div class="ui comments">
+    <% @conversation.messages.each do |msg| %>
+      <% color = current_user == msg.sender ? '#fedcba' : '#cdcdef' %>
+      <div class="ui green menu comment" style="background: <%= color %>">
+        <a href="#" class="avatar"><img></a>
+        <div class="content">
+          <a href="#"><%= msg.sender.email %></a>
+          <div class="metadata">
+            <span class="date"><%= time_ago_in_words(msg.created_at) %></span>
+            <%= link_to("删除", conversation_message_path(id: msg, conversation_id: @conversation), method: :delete, data: { confirm: '你确定?'}) if msg.sender == current_user%>
+          </div>
+          <div class="text">
+            <%= msg.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<hr class="divider"></hr>
+<%= form_for :message, url: conversation_messages_path(conversation_id: @conversation), html: { class: "ui form" }, remote: true do |f| %>
+  <div class="field">
+    <%= f.label :content, Message.human_attribute_name(:content) %>
+    <%= f.text_area :content, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "发送", class: "ui button" %>
+  </div>
+<% end %>

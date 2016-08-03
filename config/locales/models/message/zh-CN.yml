@@ -1,0 +1,7 @@
+zh-CN:
+  activerecord:
+    model:
+      message: 消息
+    attributes:
+      message:
+        content: 内容
