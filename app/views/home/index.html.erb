@@ -1,5 +1,6 @@
 <h1><%= t("app.welcome") %></h1>
 <% if !signed_in? %>
   <%= link_to t("operation.sign_in"), new_user_session_path %>
+<% else %>
+  <%= link_to t("operation.click_me"), all_users_path %> <%= t("app.add_more_friends") %>
 <% end %>
-<%= link_to t("operation.click_me"), all_users_path %> <%= t("app.add_more_friends") %>

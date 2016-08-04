@@ -1,24 +1,29 @@
-# README
+# 基于Rails5的消息应用
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 技术选型
 
-Things you may want to cover:
+本次需要实现的功能列表为：
+- 这是一个 web app
+- 用户之间可以收、发私信
+- 可以查看自己的私信联系人列表
+- 私信列表中显示对方 ID 以及未读数量提醒
+- 用户可以删除某个私信会话记录，但保留与对方用户的消息数据
+- 用户可以删除私信会话中的自己发的消息
+- 新消息实时提醒
 
-* Ruby version
+从最后一点来看，可以实现的Ruby框架选型可以为`volt`框架。但`Rails5`集成了`actioncable`也能很容易实现，而`rails`开发更方便熟练，因此技术选型`rails`最佳。
 
-* System dependencies
+从其他需求来看，需要实现的基本上都是普通的`CURD`请求，只有`会话`一项需要做成实时响应的。那么只需要定义一个`websocket` server，在打开`会话`页面时，连接上这个`websocket` server即可。
 
-* Configuration
+## 模型与关联
 
-* Database creation
+- User， 用于表示用户数据
+- FriendRelation， 朋友关系数据，通过 friend_relations表实现user与user之间的朋友关系关联（多对多的关系）
+- Conversation， 会话，一个会话包含了多条消息（一对多）
+- Message， 消息，必属于一个会话，并且拥有一个发送者(User)与一个接收者(User)
+- MessageStatus，消息状态，拥有一个接收者，属于一个消息，保存该接收者是否已读该条消息
+- UserConversationRelation，用户与会话的关联，一个会话必属于两个用户(User)，这两个用户同时为发送者和接收者
 
-* Database initialization
+## 关于测试
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+本次只编写了`model`的单元测试，基本上每一个方法都包含一个单元测试。
