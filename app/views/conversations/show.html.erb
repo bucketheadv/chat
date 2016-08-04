@@ -1,9 +1,10 @@
 <div class="ui example">
-  <div class="ui comments">
-    <% @conversation.messages.each do |msg| %>
+  <% @conversation.messages.each do |msg| %>
+  <div class="ui segment">
+    <div class="ui comments">
       <% color = current_user == msg.sender ? '#fedcba' : '#cdcdef' %>
-      <div class="ui green menu comment" style="background: <%= color %>">
-        <a href="#" class="avatar"><img></a>
+      <div class="ui green menu comment" style="background: <%= color %>;padding: 5px 10px">
+        <!--<a href="#" class="avatar"><img></a>-->
         <div class="content">
           <a href="#"><%= msg.sender.email %></a>
           <div class="metadata">
@@ -15,17 +16,17 @@
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
+  <% end %>
 </div>
-<hr class="divider"></hr>
 <%= form_for :message, url: conversation_messages_path(conversation_id: @conversation), html: { class: "ui form" }, remote: true do |f| %>
-  <div class="field">
-    <%= f.label :content, Message.human_attribute_name(:content) %>
-    <%= f.text_area :content, required: true %>
-  </div>
+<div class="field">
+  <%= f.label :content, Message.human_attribute_name(:content) %>
+  <%= f.text_area :content, required: true %>
+</div>
 
-  <div class="field">
-    <%= f.submit "发送", class: "ui button" %>
-  </div>
+<div class="field">
+  <%= f.submit "发送", class: "ui button" %>
+</div>
 <% end %>

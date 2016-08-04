@@ -1,5 +1,5 @@
 class Conversation < ApplicationRecord
-  has_many :messages
+  has_many :messages, dependent: :destroy
   has_many :user_conversation_relations, dependent: :destroy
 
   def get_sender(receiver_id)
