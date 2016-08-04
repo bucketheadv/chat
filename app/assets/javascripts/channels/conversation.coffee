@@ -1,6 +1,7 @@
 $(document).ready () ->
   sender_id       = $("div.sender_id").html()
   conversation_id = $("div.conversation_id").html()
+  $(".message-window").scrollTop($(".message-window")[0].scrollHeight)
   generate_view = (message) ->
     # console.log(JSON.stringify(message))
     canDelete = false
@@ -34,6 +35,7 @@ $(document).ready () ->
       data = data['message']
       if (data['conversation_id'].toString() == conversation_id)
         $(".ui.example").append(generate_view(data))
+        $(".message-window").scrollTop($(".message-window")[0].scrollHeight)
       # Called when there's incoming data on the websocket for this channel
 
     speak: (from, to, message)->

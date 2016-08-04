@@ -1,10 +1,18 @@
+<%= content_for :assets do %>
+  <style type="text/css">
+    .message-window {
+      height: 500px;
+      overflow: auto;
+    }
+  </style>
+<% end %>
 <div class="sender_id" style="display: none;"><%= current_user.id %></div>
 <div class="conversation_id" style="display: none;"><%= @conversation.id %></div>
 <div class="ui segment">
   <div class="ui attached top label">
     与 <%= @conversation.get_reciever(current_user.id)&.email %> 聊天中
   </div>
-  <div class="ui example">
+  <div class="ui example message-window">
     <%= render @conversation.messages %>
   </div>
 </div>
