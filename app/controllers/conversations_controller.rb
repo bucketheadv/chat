@@ -8,7 +8,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.includes(messages: :sender).find(params[:id])
     msgs = current_user.unread_messages_from(@conversation)
     msg_statuses = MessageStatus.where(message_id: msgs.pluck(:id), receiver_id: current_user.id)
-    msg_statuses.update_all(status: 1) if msg_statuses.exists?
+    msg_statuses.update_all(status: :has_read) if msg_statuses.exists?
   end
 
   def delete_my_conversation

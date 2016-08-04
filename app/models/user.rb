@@ -39,11 +39,11 @@ class User < ApplicationRecord
   # Unread messages from a conversation
   def unread_messages_from(conversation)
     id = conversation.is_a?(Conversation) ? conversation.id : id
-    received_messages.joins(:message_statuses).where(message_statuses: { status: 0 }).where(conversation_id: id)
+    received_messages.joins(:message_statuses).where(message_statuses: { status: :unread }).where(conversation_id: id)
   end
 
   def unread_all_messages
-    self.received_messages.joins(:message_statuses).where(message_statuses: { status: 0 })
+    self.received_messages.joins(:message_statuses).where(message_statuses: { status: :unread })
   end
 
   def add_friend(user)
