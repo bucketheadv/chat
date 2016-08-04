@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
   def destroy
     @msg = current_user.sended_messages.find_by(id: params[:id])
     @msg.destroy
-    redirect_to conversation_path(params[:conversation_id])
+    redirect_back fallback_location: conversation_path(params[:conversation_id])
   end
 
   private

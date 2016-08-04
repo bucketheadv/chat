@@ -40,6 +40,8 @@ $(document).ready () ->
       @perform 'speak', sender_id: from, conversation_id: to, message: message
 
   $(document).on "keypress", '[data-behavior~=conversation_speaker]', (event) ->
+    if sender_id == null || sender_id.trim() == '' || conversation_id == null || conversation_id.trim() == ''
+      return true
     if event.target.value.trim() == ''
       return true
     if event.keyCode is 13
