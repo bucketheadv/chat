@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :sender_conversations, through: :sender_conversation_relations, class_name: 'Conversation'
   has_many :receiver_conversations, through: :receiver_conversation_relations, class_name: 'Conversation'
 
+  has_many :friend_relations
+  has_many :friends, through: :friend_relations, class_name: 'User'
+
   #def conversation_relations
   #  (self.sender_conversation_relations | self.receiver_conversations).uniq
   #end
@@ -41,5 +44,21 @@ class User < ApplicationRecord
 
   def unread_all_messages
     self.received_messages.joins(:message_statuses).where(message_statuses: { status: 0 })
+  end
+
+  def add_friend(user)
+    user = user.is_a?(User) ? user : User.find(user)
+    self.class.transaction do
+      self.friends << user
+      user.friends << self
+    end
+  end
+
+  def remove_friend(user)
+    user = user.is_a?(User) ? user : User.find(user)
+    self.class.transaction do
+      self.friend_relations.where(friend_id: user.id).destroy_all
+      user.friend_relations.where(friend_id: self.id).destroy_all
+    end
   end
 end

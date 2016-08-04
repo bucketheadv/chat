@@ -1,6 +1,6 @@
 class MyController < ApplicationController
   def contacts
-    @contacts = User.where.not(id: current_user.id)
+    @contacts = current_user.friends
   end
 
   def message_board

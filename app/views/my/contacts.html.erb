@@ -10,13 +10,21 @@
       </tr>
     </thead>
     <tbody>
-      <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.email %></td>
-        <td>
-          <%= link_to "发消息", new_conversation_path(receiver_id: contact.id), class: 'ui button' %>
-        </td>
-      </tr>
+      <% if @contacts.any? %>
+        <% @contacts.each do |contact| %>
+        <tr>
+          <td><%= contact.email %></td>
+          <td>
+            <%= link_to "发消息", new_conversation_path(receiver_id: contact.id), class: 'ui button' %>
+          </td>
+        </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td>
+            您没有任何联系人，<%= link_to "点击此处", all_users_path %>去添加吧。
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

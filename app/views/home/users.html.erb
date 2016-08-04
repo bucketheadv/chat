@@ -1,0 +1,27 @@
+<div class="ui segment">
+  <div class="ui top attached label">
+    所有用户
+  </div>
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>邮箱</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td>
+          <% if !current_user.friends.include?(user) %>
+            <%= link_to "添加好友", friend_path(user), method: :put, class: 'ui button' %>
+          <% else %>
+            <%= link_to "删除好友", friend_path(user), method: :delete, data: { confirm: "你确定?"}, class: 'ui button red' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
