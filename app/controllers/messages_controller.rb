@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def create
     @conversation = Conversation.find(params[:conversation_id])
-    receiver = @conversation.get_reciever(current_user.id)
+    receiver = @conversation.get_receiver(current_user.id)
     @message = @conversation.messages.build(message_params.merge(sender_id: current_user.id, receiver_id: receiver.id))
     if @message.save
       flash[:notice] = 'Message sended.'

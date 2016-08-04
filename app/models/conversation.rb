@@ -6,7 +6,7 @@ class Conversation < ApplicationRecord
     user_conversation_relations.find_by(receiver_id: receiver_id).try(:sender)
   end
 
-  def get_reciever(sender_id)
+  def get_receiver(sender_id)
     user_conversation_relations.find_by(sender_id: sender_id).try(:receiver)
   end
 end

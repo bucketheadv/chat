@@ -63,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def send_message(conversation, message)
-    receiver = conversation.get_reciever(self.id)
+    receiver = conversation.get_receiver(self.id)
     message = conversation.messages.build(content: message, sender_id: self.id, receiver_id: receiver.id)
     message.save
     message
