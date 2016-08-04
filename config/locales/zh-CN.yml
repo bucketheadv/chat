@@ -2,8 +2,10 @@ zh-CN:
   app:
     name: 消息平台
     welcome: 欢迎来到消息平台。
+    add_more_friends: 添加更多朋友。
   operation:
     sign_in: 登录
     sign_out: 登出
     contacts: 联系人
     message_board: 消息板
+    click_me: 点击我

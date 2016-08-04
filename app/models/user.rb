@@ -20,7 +20,8 @@ class User < ApplicationRecord
   #end
 
   # Get the conversation of two users, should be the same
-  def conversation_to(receiver_id)
+  def conversation_to(receiver)
+    receiver_id = receiver.is_a?(User) ? receiver.id : receiver
     relation = sender_conversation_relations.where(receiver_id: receiver_id).first
     return relation.sender_conversation if relation.present?
     relation = receiver_conversation_relations.where(sender_id: receiver_id).first
@@ -62,9 +63,9 @@ class User < ApplicationRecord
     end
   end
 
-  def send_message(conversation, message)
+  def send_message(conversation, content)
     receiver = conversation.get_receiver(self.id)
-    message = conversation.messages.build(content: message, sender_id: self.id, receiver_id: receiver.id)
+    message = conversation.messages.build(content: content, sender_id: self.id, receiver_id: receiver.id)
     message.save
     message
   end
