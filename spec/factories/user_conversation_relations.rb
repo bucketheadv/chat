@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user_conversation_relation do
-    user_id 1
-    receiver_id 1
-    conversation_id 1
+    association :sender, factory: :user
+    association :receiver, factory: :user
+    association :sender_conversation, factory: :conversation
   end
 end

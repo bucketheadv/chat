@@ -16,4 +16,12 @@ RSpec.describe Message, type: :model do
     it { is_expected.to callback(:set_message_status).before(:save) }
     it { is_expected.to callback(:generate_conversation_and_touch).after(:commit) }
   end
+
+  describe "#set_message_status" do
+    let(:message) { FactoryGirl.build(:message) }
+    it do
+      message.send(:set_message_status)
+      expect(message.message_statuses).not_to be_empty
+    end
+  end
 end

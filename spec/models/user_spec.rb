@@ -26,21 +26,24 @@ RSpec.describe User, type: :model do
   end
 
   context ".unread messages count" do
-    let(:user1) { FactoryGirl.create(:user) }
-    let(:user2) { FactoryGirl.create(:user) }
+    let(:user_conversation_relation) { FactoryGirl.create(:user_conversation_relation) }
     describe "#unread_message_from" do
       it "should has correct unread messages count" do
-        conversation = user1.conversation_to(user2.id)
-        user1.send_message(conversation, Faker::Lorem.word)
-        expect(user2.unread_messages_from(conversation).count).to eq 1
+        conversation = user_conversation_relation.sender_conversation
+        sender = user_conversation_relation.sender
+        receiver = user_conversation_relation.receiver
+        sender.send_message(conversation, Faker::Lorem.word)
+        expect(receiver.unread_messages_from(conversation).count).to eq 1
       end
     end
 
     describe "#unread_all_messages" do
       it "should has correct unread messages count" do
-        conversation = user1.conversation_to(user2.id)
-        user1.send_message(conversation, Faker::Lorem.word)
-        expect(user2.unread_all_messages.count).to eq 1
+        conversation = user_conversation_relation.sender_conversation
+        sender = user_conversation_relation.sender
+        receiver = user_conversation_relation.receiver
+        sender.send_message(conversation, Faker::Lorem.word)
+        expect(receiver.unread_all_messages.count).to eq 1
       end
     end
   end
@@ -69,12 +72,12 @@ RSpec.describe User, type: :model do
   end
 
   describe "#send_message" do
-    let(:user1) { FactoryGirl.create(:user) }
-    let(:user2) { FactoryGirl.create(:user) }
+    let(:user_conversation_relation) { FactoryGirl.create(:user_conversation_relation) }
     it "should send a message" do
-      conversation = user1.conversation_to(user2)
+      conversation = user_conversation_relation.sender_conversation
+      user = user_conversation_relation.sender
       word = Faker::Lorem.word
-      message = user1.send_message(conversation, word)
+      message = user.send_message(conversation, word)
       expect(message.content).to eq word
     end
   end
