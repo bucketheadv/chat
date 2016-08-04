@@ -7,7 +7,7 @@
     <div class="ui segment">
       <div class="ui comments">
         <% color = current_user == msg.sender ? '#fedcba' : '#cdcdef' %>
-        <div class="ui green menu comment" style="background: <%= color %>;padding: 5px 10px">
+        <div class="ui menu comment" style="background: <%= color %>;padding: 5px 10px">
           <!--<a href="#" class="avatar"><img></a>-->
           <div class="content">
             <a href="#"><%= msg.sender.email %></a>
