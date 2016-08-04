@@ -5,4 +5,6 @@ class UserConversationRelation < ApplicationRecord
   belongs_to :receiver_conversation, class_name: 'Conversation', foreign_key: 'conversation_id'
 
   validates_uniqueness_of :receiver_id, scope: :sender_id
+
+  scope :new_to_old, -> { order(updated_at: :desc) }
 end
