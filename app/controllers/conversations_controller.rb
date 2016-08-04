@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @conversation = Conversation.find(params[:id])
+    @conversation = Conversation.includes(messages: :sender).find(params[:id])
     msgs = current_user.unread_messages_from(@conversation)
     msg_statuses = MessageStatus.where(message_id: msgs.pluck(:id), receiver_id: current_user.id)
     msg_statuses.update_all(status: 1) if msg_statuses.exists?

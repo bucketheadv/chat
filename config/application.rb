@@ -12,8 +12,8 @@ module Chat
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.generators do |g|
-      g.assets false
-      g.helper false
+      #g.assets false
+      #g.helper false
     end
 
     config.i18n.default_locale = :"zh-CN"

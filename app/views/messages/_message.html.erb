@@ -1,0 +1,18 @@
+<div class="ui segment">
+  <div class="ui comments">
+    <% color = current_user == message.sender ? '#fedcba' : '#cdcdef' %>
+    <div class="ui menu comment" style="background: <%= color %>;padding: 5px 10px">
+      <!--<a href="#" class="avatar"><img></a>-->
+      <div class="content">
+        <a href="#"><%= message.sender.email %></a>
+        <div class="metadata">
+          <span class="date"><%= time_ago_in_words(message.created_at) %></span>
+          <%= link_to("删除", conversation_message_path(id: message, conversation_id: message.conversation), method: :delete, data: { confirm: '你确定?'}, class: 'ui inverted red button mini') if message.sender == current_user %>
+        </div>
+        <div class="text">
+          <%= message.content %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

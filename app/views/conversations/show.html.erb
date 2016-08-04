@@ -1,37 +1,22 @@
+<div class="sender_id" style="display: none;"><%= current_user.id %></div>
+<div class="conversation_id" style="display: none;"><%= @conversation.id %></div>
 <div class="ui segment">
   <div class="ui attached top label">
-    与 <%= @conversation.get_sender(current_user.id).email %> 聊天中
+    与 <%= @conversation.get_reciever(current_user.id)&.email %> 聊天中
   </div>
   <div class="ui example">
-    <% @conversation.messages.each do |msg| %>
-    <div class="ui segment">
-      <div class="ui comments">
-        <% color = current_user == msg.sender ? '#fedcba' : '#cdcdef' %>
-        <div class="ui menu comment" style="background: <%= color %>;padding: 5px 10px">
-          <!--<a href="#" class="avatar"><img></a>-->
-          <div class="content">
-            <a href="#"><%= msg.sender.email %></a>
-            <div class="metadata">
-              <span class="date"><%= time_ago_in_words(msg.created_at) %></span>
-              <%= link_to("删除", conversation_message_path(id: msg, conversation_id: @conversation), method: :delete, data: { confirm: '你确定?'}) if msg.sender == current_user%>
-            </div>
-            <div class="text">
-              <%= msg.content %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% end %>
+    <%= render @conversation.messages %>
   </div>
 </div>
 <%= form_for :message, url: conversation_messages_path(conversation_id: @conversation), html: { class: "ui form" }, remote: true do |f| %>
 <div class="field">
   <%= f.label :content, Message.human_attribute_name(:content) %>
-  <%= f.text_area :content, required: true %>
+  <%= f.text_area :content, required: true, "data-behavior": "conversation_speaker", placeholder: '输入信息后按回车发送' %>
 </div>
 
+<!--
 <div class="field">
   <%= f.submit "发送", class: "ui button" %>
 </div>
+-->
 <% end %>

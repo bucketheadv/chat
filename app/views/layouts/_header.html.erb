@@ -17,7 +17,13 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <%= link_to t("operation.contacts"), my_contacts_path, class: 'item' %>
-          <%= link_to "#{t("operation.message_board")}(#{current_user.unread_all_messages.count})", my_message_board_path, class: 'item' %>
+          <!--<%= link_to "#{t("operation.message_board")}(#{current_user.unread_all_messages.count})", my_message_board_path, class: 'item' %>-->
+          <a href="<%= my_message_board_path %>" class="item">
+            <%= t("operation.message_board") %>
+            <div class="floating ui orange label">
+              <%= current_user.unread_all_messages.count %>
+            </div>
+          </a>
           <%= link_to t("operation.sign_out"), destroy_user_session_path, method: :delete, class: "item" %>
         </div>
       </div>

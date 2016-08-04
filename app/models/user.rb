@@ -23,7 +23,7 @@ class User < ApplicationRecord
   def conversation_to(receiver_id)
     relation = sender_conversation_relations.where(receiver_id: receiver_id).first
     return relation.sender_conversation if relation.present?
-    relation = receiver_conversation_relations.where(receiver_id: self.id).first
+    relation = receiver_conversation_relations.where(sender_id: receiver_id).first
     if relation.present?
       conversation = relation.sender_conversation
       self.sender_conversation_relations.create(receiver_id: receiver_id, sender_conversation: conversation)
@@ -60,5 +60,12 @@ class User < ApplicationRecord
       self.friend_relations.where(friend_id: user.id).destroy_all
       user.friend_relations.where(friend_id: self.id).destroy_all
     end
+  end
+
+  def send_message(conversation, message)
+    receiver = conversation.get_reciever(self.id)
+    message = conversation.messages.build(content: message, sender_id: self.id, receiver_id: receiver.id)
+    message.save
+    message
   end
 end
