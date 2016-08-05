@@ -74,6 +74,6 @@ server '120.55.98.96',
     user: 'sven', # overrides user setting above
     keys: %w(/home/sven/.ssh/id_rsa),
     forward_agent: false,
-    auth_methods: %w(publickey password)
+    auth_methods: %w(publickey authorized_keys)
     # password: 'please use keys'
   }
