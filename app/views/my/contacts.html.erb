@@ -15,7 +15,7 @@
         <tr>
           <td><%= contact.email %></td>
           <td>
-            <%= link_to "发消息", new_conversation_path(receiver_id: contact.id), class: 'ui button' %>
+            <%= link_to "发消息", new_conversation_path(receiver_id: contact.id), class: 'ui button', "data-turbolinks" => false %>
           </td>
         </tr>
         <% end %>

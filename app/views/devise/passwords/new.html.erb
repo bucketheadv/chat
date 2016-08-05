@@ -1,4 +1,4 @@
-<h2>Forgot your password?</h2>
+<h2>忘记密码?</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "ui form" }) do |f| %>
   <%= devise_error_messages! %>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions", class: "ui button" %>
+    <%= f.submit "发送重置密码邮件", class: "ui button" %>
   </div>
 <% end %>
 

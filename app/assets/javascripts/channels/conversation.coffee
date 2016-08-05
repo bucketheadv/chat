@@ -1,13 +1,15 @@
 $(document).ready () ->
   sender_id       = $("div.sender_id").html()
   conversation_id = $("div.conversation_id").html()
+  if sender_id == undefined || conversation_id == undefined
+    return false
   $(".message-window").scrollTop($(".message-window")[0].scrollHeight)
   generate_view = (message) ->
     # console.log(JSON.stringify(message))
-    canDelete = false
+    can_elete = false
     if message['sender_id'].toString() == sender_id
       color = '#fedcba'
-      canDelete = true
+      can_delete = true
     else
       color = '#cdcdef'
     str = "<div class='ui segment'>"
@@ -16,7 +18,7 @@ $(document).ready () ->
     str += "<div class='content'>"
     str += "<a href='#'>" + message['sender_email'] + "</a>"
     str += "<div class='metadata'><span class='date'>" + message['created_at'] + "</span>"
-    if canDelete
+    if can_delete
       str += '<a data-confirm="你确定?" class="ui inverted red button mini" rel="nofollow" data-method="delete" href="/conversations/' + message['conversation_id'] + '/messages/' + message['message_id'] + '">删除</a>'
     str += "</div><div class='text'>" + message['content'] + "</div>"
     str += "</div></div></div></div>"
