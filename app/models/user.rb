@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  #
+  # Associations
+  #
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id'
 
@@ -15,11 +18,17 @@ class User < ApplicationRecord
   has_many :friend_relations
   has_many :friends, through: :friend_relations, class_name: 'User'
 
-  #def conversation_relations
-  #  (self.sender_conversation_relations | self.receiver_conversations).uniq
-  #end
+  #
+  # Instance Methods
+  #
 
-  # Get the conversation of two users, should be the same
+  #
+  # 获取两个用户之间的会话句柄，两个用户之间的会话是唯一的
+  #
+  # @param [User] 接收者或接收者ID
+  #
+  # @return [Conversation] 返回与该接收者的对话句柄
+  #
   def conversation_to(receiver)
     receiver_id = receiver.is_a?(User) ? receiver.id : receiver
     relation = sender_conversation_relations.where(receiver_id: receiver_id).first
@@ -37,16 +46,34 @@ class User < ApplicationRecord
     conversation
   end
 
-  # Unread messages from a conversation
+  #
+  # 获取一个会话下的所有未读消息
+  #
+  # @param [Conversation] 会话
+  #
+  # @return [ActiveRecord::Relation] 所有未读消息的集合
+  #
   def unread_messages_from(conversation)
     id = conversation.is_a?(Conversation) ? conversation.id : id
     received_messages.joins(:message_statuses).where(message_statuses: { status: :unread }).where(conversation_id: id)
   end
 
+  #
+  # 获取所有对话下的未读消息
+  #
+  # @return [ActiveRecord::Relation] 所有未读消息的集合
+  #
   def unread_all_messages
     self.received_messages.joins(:message_statuses).where(message_statuses: { status: :unread })
   end
 
+  #
+  # 添加一个朋友
+  #
+  # @param [User] 目标用户
+  #
+  # @return [nil]
+  #
   def add_friend(user)
     user = user.is_a?(User) ? user : User.find(user)
     self.class.transaction do
@@ -55,6 +82,13 @@ class User < ApplicationRecord
     end
   end
 
+  #
+  # 删除一个朋友
+  #
+  # @param [User] 目标用户
+  #
+  # @return [nil]
+  #
   def remove_friend(user)
     user = user.is_a?(User) ? user : User.find(user)
     self.class.transaction do
@@ -63,6 +97,13 @@ class User < ApplicationRecord
     end
   end
 
+  #
+  # 发送一条消息到一个对话
+  #
+  # @param [Conversation, String] 对话，和要发送的字符串
+  #
+  # @return [Message] 发送的Message对象
+  #
   def send_message(conversation, content)
     receiver = conversation.get_receiver(self.id)
     message = conversation.messages.build(content: content, sender_id: self.id, receiver_id: receiver.id)

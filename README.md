@@ -42,7 +42,7 @@ bundle exec rspec spec
 
 ## 关于部署
 
-原本已经部署了一份在阿里云上，但`CentOS`上跑`rails5`，死活不能启动`ActionCable`进程，导致无法实时通信，因此附上部署步骤。
+原本已经部署了一份在阿里云上，但`CentOS`上跑`rails5`，死活不能启动`ActionCable`进程，导致无法实时通信，尚未找出原因，因此附上部署步骤。
 
 ```ruby
 git clone https://github.com/sven199109/chat
@@ -51,4 +51,4 @@ bundle install
 rake db:create && rake db:migrate
 ```
 
-此外还依赖`node.js`运行时，可通过`nvm`进行安装；以及`Redis`服务。安装完成后，运行`rails s`即可。
+此外还依赖`node.js`运行时，可通过`nvm`进行安装；`Redis`服务也是必须的。安装完成后，运行`rails s`即可查看效果。
