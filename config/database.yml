@@ -15,7 +15,7 @@ default: &default
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
+  socket: <%= ENV['MYSQL_DATABASE_SOCKET'] %>
 
 development:
   <<: *default
@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: chat_production
-  username: chat
+  username: <%= ENV['CHAT_DATABASE_USERNAME'] %>
   password: <%= ENV['CHAT_DATABASE_PASSWORD'] %>
