@@ -17,6 +17,14 @@
 
 ## 模型与关联
 
+首先，必须要有User对象，用于存储用户个人信息和处理登录。用户之间发送的消息是发件人和收件人都能看到的，但是两个人看到的是同一条完全一样的信息，因此一条信息同时属于两个用户，一个sender和一个receiver，分别是一个User对象。但是用户每条信息都有一个是否已读的标识，因此Message需要与receiver之间有一个关联，用MessageStatus模型来表示这个关联，而sender不需要与Message关联，因为sender对于这条Message必然是已读的。
+
+如果仅仅是Message和User关联，那么无法做到用户删除自己的对话时，对方的对话信息依然存在；因此需要一个Conversation对象，表示一个对话，这个对话是同时属于两个用户sender和receiver的，因此是一个多对多的关系，于是使用UserConversationRelation来表示这个关系，一个sender与一个receiver之间拥有一个唯一的UserConversationRelation对象，当一个用户要删除某个对话时，即是删除这个对象，不影响对方的此次对话。
+
+同时，用户与好友之间才能进行对话，好友关系是多对多，使用FriendRelation来表示，当一个用户A添加一个好友B时，B的好友列表里也要同时加上A。属于User与User之间的多对多关联。
+
+通过以上设计，得出以下模型数据：
+
 - User， 用于表示用户数据
 - FriendRelation， 朋友关系数据，通过 friend_relations表实现user与user之间的朋友关系关联（多对多的关系）
 - Conversation， 会话，一个会话包含了多条消息（一对多），一个用户可以拥有多个会话，一个会话必属于两个用户
@@ -26,4 +34,21 @@
 
 ## 关于测试
 
-由于时间问题，本次只编写了`model`的单元测试，也没有做分页，但基本上每一个方法都包含了一个单元测试。
+由于时间问题，本次只编写了`model`的单元测试，也没有做分页，但基本上每一个方法都包含了一个单元测试。在目录下执行以下命令跑测试：
+
+```ruby
+bundle exec rspec spec
+```
+
+## 关于部署
+
+原本已经部署了一份在阿里云上，但`CentOS`上跑`rails5`，死活不能启动`ActionCable`进程，导致无法实时通信，因此附上部署步骤。
+
+```ruby
+git clone https://github.com/sven199109/chat
+cd chat
+bundle install
+rake db:create && rake db:migrate
+```
+
+此外还依赖`node.js`运行时，可通过`nvm`进行安装；以及`Redis`服务。安装完成后，运行`rails s`即可。
