@@ -57,7 +57,6 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
     end
   end
-  after :restart, :'puma:restart'    #添加此项重启puma
   after :publishing, :restart
 
   after :restart, :clear_cache do
