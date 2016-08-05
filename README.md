@@ -19,7 +19,7 @@
 
 - User， 用于表示用户数据
 - FriendRelation， 朋友关系数据，通过 friend_relations表实现user与user之间的朋友关系关联（多对多的关系）
-- Conversation， 会话，一个会话包含了多条消息（一对多）
+- Conversation， 会话，一个会话包含了多条消息（一对多），一个用户可以拥有多个会话，一个会话必属于两个用户
 - Message， 消息，必属于一个会话，并且拥有一个发送者(User)与一个接收者(User)
 - MessageStatus，消息状态，拥有一个接收者，属于一个消息，保存该接收者是否已读该条消息
 - UserConversationRelation，用户与会话的关联，一个会话必属于两个用户(User)，这两个用户同时为发送者和接收者
