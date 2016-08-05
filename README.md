@@ -51,10 +51,10 @@ bundle install
 rake db:create && rake db:migrate
 ```
 
-然后请配置`shell`环境变量，在`~/.zshrc`(或`~/.bashrc`等其他shell)中，配置以下环境变量：
+然后请配置`shell`环境变量，在`~/.zshrc`(或`~/.bashrc`等其他shell)中，配置以下环境变量(配置完成后执行命令`source ~/.zshrc` 或其他shrc文件)：
 
 ```ruby
-export MYSQL_DATABASE_SOCKET='/var/lib/mysql/mysql.sock' # 如果是Mac，此项为'/tmp/mysql.sock'；如果是ubuntu，则为'/var/run/mysqld/mysqld.sock'
+export MYSQL_DATABASE_SOCKET=/var/lib/mysql/mysql.sock # 如果是Mac，此项为'/tmp/mysql.sock'；如果是ubuntu，则为'/var/run/mysqld/mysqld.sock'
 export CHAT_DATABASE_USERNAME=root # MySQL 用户名
 export CHAT_DATABASE_PASSWORD=     # MySQL 密码
 export SECRET_KEY_BASE=33ba417314ae1a25031cdf8dfd35fe09dee26d4be0cee4c94894e5459d5c61f53f7d122a1dc208aa5af77c7a6886052fe20831ae45a70226f7c305dc4c7bf7d7 # cookie加密用的值，是自定义的，production环境才需要
