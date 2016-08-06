@@ -2,5 +2,5 @@
 <% if !signed_in? %>
   <%= link_to t("operation.sign_in"), new_user_session_path %>
 <% else %>
-  <%= link_to t("operation.click_me"), all_users_path %> <%= t("app.add_more_friends") %>
+  <%= link_to t("operation.click_me"), all_users_path, class: 'ui mini button green' %> <%= t("app.add_more_friends") %>
 <% end %>
