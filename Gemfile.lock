@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: abbf93d557208ee1d0b612c612cd079f86ed54f4
+  branch: 0-17-stable
+  specs:
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -237,6 +246,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.5)
   jquery-rails
+  kaminari!
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.0)

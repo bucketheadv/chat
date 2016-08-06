@@ -60,3 +60,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'semantic-ui-sass'
+gem 'kaminari', github: "amatsuda/kaminari", branch: '0-17-stable'

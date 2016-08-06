@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <% if @conversation_relation.any? %>
-        <% @conversation_relation.each do |relation| %>
+      <% if @conversation_relations.any? %>
+        <% @conversation_relations.each do |relation| %>
         <tr>
           <td>
             <%= relation.receiver.email %>
@@ -34,5 +34,6 @@
         </tr>
       <% end %>
     </tbody>
+    <%= paginate @conversation_relations %>
   </table>
 </div>
